@@ -16,10 +16,10 @@ timezone: Asia/Seoul
 
 title: waverDeep # the main title
 
-tagline: 게임회사 다니는 AI연구원의 이야기 # it will display as the sub-title
+tagline: 게임회사 다니는 AI연구원의 재미있는 이야기 # it will display as the sub-title
 
 description: >- # used by seo meta and the atom feed
-  A minimal, responsive and feature-rich Jekyll theme for technical writing.
+  The Interesting Story of an AI Researcher Working at a Game Development Company.
 
 # Fill in the protocol & hostname for your site.
 # e.g. '', note that it does not end with a '/'.
@@ -39,7 +39,7 @@ social:
   links:
     # The first element serves as the copyright owner's link
     - https://twitter.com/username # change to your twitter homepage
-    - https://github.com/username # change to your github homepage
+    - https://github.com/waverdeep # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
