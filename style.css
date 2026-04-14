@@ -171,33 +171,6 @@ section {
   margin-bottom: 2rem;
 }
 
-/* === Impact Stats === */
-.impact-stats {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-}
-
-.stat-number {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--color-accent);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-.stat-label {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  margin-top: 0.2rem;
-}
-
 .hero-links {
   display: flex;
   gap: 1rem;
@@ -533,14 +506,6 @@ section {
 
   .hero-content p {
     font-size: 1rem;
-  }
-
-  .impact-stats {
-    gap: 1.25rem;
-  }
-
-  .stat-number {
-    font-size: 1.35rem;
   }
 
   .process-steps {
