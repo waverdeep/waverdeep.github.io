@@ -419,9 +419,40 @@ section {
 }
 
 .timeline-item {
+  position: relative;
   display: grid;
   grid-template-columns: 140px 1fr;
   gap: 1.5rem;
+}
+
+/* 연구 노트북 느낌의 세로 축선 (date 컬럼과 content 컬럼 사이 거터) */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 140px;
+  top: 0.6rem;
+  bottom: -2rem;            /* .timeline gap(2rem)을 메워 다음 아이템과 이어짐 */
+  border-left: 1px dashed var(--color-border-strong);
+  pointer-events: none;
+}
+
+/* 각 항목 시작점의 accent 색 도트 마커 */
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  left: calc(140px - 3.5px);
+  top: calc(0.6rem - 3px);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-bg);
+  pointer-events: none;
+}
+
+/* 타임라인 마지막 항목에서는 선이 허공으로 흐르지 않도록 숨김 */
+.timeline > .timeline-item:last-child::before {
+  display: none;
 }
 
 .timeline-date {
@@ -761,6 +792,12 @@ section {
   .timeline-item {
     grid-template-columns: 1fr;
     gap: 0.25rem;
+  }
+
+  /* 모바일에서는 단일 컬럼으로 스택되므로 축선/도트 숨김 */
+  .timeline-item::before,
+  .timeline-item::after {
+    display: none;
   }
 
   .skills-grid {
