@@ -5,8 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>김성현 — AI Engineer</title>
   <meta name="description" content="김성현 포트폴리오. AI 연구부터 실서비스 배포까지 End-to-End로 수행하는 AI Engineer.">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- FOUC 방지: 테마를 먼저 적용 -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme');
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored || (systemDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,9 +44,15 @@
         <li><a href="#education">Education</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="nav-toggle" aria-label="메뉴 열기">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="테마 전환" type="button">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button class="nav-toggle" aria-label="메뉴 열기" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
