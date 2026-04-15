@@ -13,9 +13,9 @@
   --color-border: rgba(17, 17, 17, 0.08);
   --color-border-strong: rgba(17, 17, 17, 0.14);
 
-  --color-accent: #8a5a3b;            /* sienna */
-  --color-accent-hover: #6f4830;
-  --color-accent-subtle: rgba(138, 90, 59, 0.10);
+  --color-accent: #2e6f6a;            /* deep teal */
+  --color-accent-hover: #245955;
+  --color-accent-subtle: rgba(46, 111, 106, 0.10);
 
   --color-success: #047857;
   --color-success-subtle: rgba(4, 120, 87, 0.10);
@@ -23,6 +23,7 @@
   --color-nav-bg: rgba(250, 250, 247, 0.85);
   --color-menu-bg: rgba(250, 250, 247, 0.96);
   --color-shadow: rgba(17, 17, 17, 0.06);
+  --color-dot: rgba(17, 17, 17, 0.05);
 
   /* --- Typography --- */
   --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -59,9 +60,9 @@
   --color-border: rgba(255, 255, 255, 0.09);
   --color-border-strong: rgba(255, 255, 255, 0.16);
 
-  --color-accent: #8ab4ff;            /* cool blue */
-  --color-accent-hover: #a7c5ff;
-  --color-accent-subtle: rgba(138, 180, 255, 0.14);
+  --color-accent: #5eead4;            /* mint teal */
+  --color-accent-hover: #7af0de;
+  --color-accent-subtle: rgba(94, 234, 212, 0.14);
 
   --color-success: #34d399;
   --color-success-subtle: rgba(52, 211, 153, 0.14);
@@ -69,6 +70,7 @@
   --color-nav-bg: rgba(11, 11, 12, 0.80);
   --color-menu-bg: rgba(11, 11, 12, 0.96);
   --color-shadow: rgba(0, 0, 0, 0.4);
+  --color-dot: rgba(255, 255, 255, 0.06);
 }
 
 /* =========================================================
@@ -250,13 +252,25 @@ section {
 }
 
 .section-title {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 600;
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--color-accent);
+  color: var(--color-ink);
   margin-bottom: 2rem;
+}
+
+.section-index {
+  color: var(--color-accent);
+  margin-right: 0.4em;
+  font-variant-numeric: tabular-nums;
+}
+
+.section-sep {
+  color: var(--color-muted);
+  margin-right: 0.4em;
+  opacity: 0.6;
 }
 
 /* =========================================================
@@ -264,10 +278,29 @@ section {
    ========================================================= */
 
 .hero {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   padding-top: 0;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--color-dot) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  background-position: 0 0;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-profile {
@@ -445,6 +478,18 @@ section {
   font-size: 1.1rem;
   line-height: 1.35;
   letter-spacing: -0.005em;
+}
+
+.pub-ref {
+  font-family: var(--font-mono);
+  font-size: 0.62em;
+  font-weight: 500;
+  color: var(--color-accent);
+  margin-left: 0.25em;
+  vertical-align: super;
+  line-height: 0;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .pub-section-label {
