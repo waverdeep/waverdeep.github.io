@@ -76,3 +76,22 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+
+// Back link — 동일 오리진에서 유입되었으면 history.back()으로 스크롤 위치까지 복원.
+// 새 탭·외부 유입·직접 접근이면 href 폴백으로 자연스럽게 이동.
+const backLink = document.querySelector('.back-link');
+if (backLink) {
+  backLink.addEventListener('click', (e) => {
+    let sameOriginReferrer = false;
+    try {
+      sameOriginReferrer =
+        !!document.referrer &&
+        new URL(document.referrer).origin === location.origin;
+    } catch (err) { /* malformed referrer — ignore */ }
+
+    if (sameOriginReferrer && history.length > 1) {
+      e.preventDefault();
+      history.back();
+    }
+  });
+}

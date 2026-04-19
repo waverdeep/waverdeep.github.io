@@ -251,6 +251,11 @@ section {
   padding-top: var(--section-gap);
 }
 
+/* 앵커 점프 시 fixed nav 아래로 스크롤되도록 여유 확보 */
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 .section-title {
   font-size: 0.78rem;
   font-weight: 600;
