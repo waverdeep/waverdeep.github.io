@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 피플 애널리틱스 인사이트 추출기 · 김성현 Sunghyun Kim</title>
+  <meta name="description" content="평가 시즌 비정형 텍스트 분석 자동화 프로젝트. LLM 기반 비정형→정형 변환 파이프라인, 인사이트 제안 Agent, 조직 협업 Network Graph를 구현하여 분석 시간을 85% 단축.">
+  <meta name="author" content="Sunghyun Kim (김성현)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fafaf7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+
+  <link rel="canonical" href="https://waverdeep.github.io/projects/people-analytics.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Sunghyun Kim — Portfolio">
+  <meta property="og:title" content="AI 피플 애널리틱스 인사이트 추출기">
+  <meta property="og:description" content="LLM 기반 비정형→정형 변환 파이프라인과 Network Graph로 평가 분석 시간을 85% 단축한 프로젝트.">
+  <meta property="og:url" content="https://waverdeep.github.io/projects/people-analytics.html">
+  <meta property="og:image" content="https://waverdeep.github.io/assets/profile.png">
+  <meta property="og:locale" content="ko_KR">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232e6f6a'/><text x='16' y='22' text-anchor='middle' font-family='ui-monospace,SFMono-Regular,Menlo,monospace' font-size='18' font-weight='700' fill='white'>K</text></svg>">
+
+  <!-- FOUC 방지: 테마를 먼저 적용 -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme');
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored || (systemDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">Portfolio</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#publications">Publications</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="테마 전환" type="button">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button class="nav-toggle" aria-label="메뉴 열기" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container detail-page">
+
+    <a href="../index.html#projects" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to Portfolio
+    </a>
+
+    <!-- Hero -->
+    <header class="detail-hero">
+      <div class="detail-eyebrow">Project · NEOWIZ 피플실 협업</div>
+      <h1 class="detail-title">AI 피플 애널리틱스 인사이트 추출기</h1>
+      <p class="detail-subtitle">평가 시즌마다 반복되는 비정형 텍스트(역량평가·다면진단·동료평가) 수작업 분석을 LLM 기반 파이프라인으로 자동화. 분석 시간을 <strong>2주 → 3일</strong>로 단축하고, 조직 내 협업 구조를 Network Graph로 가시화하여 고차원 인사이트 도출을 가능하게 만든 프로젝트.</p>
+
+      <div class="detail-meta">
+        <span class="meta-badge">2023.10 — 2024.06</span>
+        <span class="meta-badge">AI 기술 리드</span>
+        <span class="meta-badge">Inhouse LLM</span>
+        <span class="meta-badge">월간인재경영 기고</span>
+        <span class="meta-badge">분석시간 85%↓</span>
+      </div>
+
+      <div class="detail-links">
+        <a href="https://www.abouthr.co.kr/news/articleView.html?idxno=6515" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+          월간인재경영 2024.04호 기고
+        </a>
+      </div>
+    </header>
+
+    <!-- Metadata -->
+    <section class="detail-section">
+      <h2><span class="section-index">01</span> Metadata</h2>
+      <dl class="kv-grid">
+        <dt>기간</dt>
+        <dd>2023.10 — 2024.06 (9개월)</dd>
+        <dt>역할</dt>
+        <dd>AI 기술 리드 — 시스템 설계 · 파이프라인 구현 · 모델 운영</dd>
+        <dt>협업</dt>
+        <dd>NEOWIZ 피플실 인터랙션팀</dd>
+        <dt>도메인</dt>
+        <dd>People Analytics · HR Tech · 비정형 텍스트 분석</dd>
+        <dt>키워드</dt>
+        <dd>Inhouse LLM · MapReduce · Insight Agent · Network Graph · 데이터 보안</dd>
+      </dl>
+    </section>
+
+    <!-- Problem -->
+    <section class="detail-section">
+      <h2><span class="section-index">02</span> Problem</h2>
+      <p>NEOWIZ 피플실은 매 평가 시즌마다 대량의 <strong>비정형 텍스트 데이터</strong>(역량평가·다면진단·하향평가·동료평가)를 수작업으로 분석해왔습니다. 한 시즌에 2주 이상이 이 기초 분석에 소요되었고, 그 결과 정작 의사결정에 필요한 <strong>고차원 분석(조직 구조·인재 배치·협업 네트워크)</strong>에는 리소스를 투입하지 못하는 구조적 한계가 있었습니다.</p>
+      <div class="detail-callout">
+        <strong>"기초 분석은 자동화하고, 피플실은 고차원 인사이트에 집중할 수 있게 만들자."</strong>
+      </div>
+      <p>단순 요약이 아니라, 수백 명분의 자유 서술형 텍스트에서 일관된 평가 축을 추출하고, 조직장이 의사결정에 쓸 수 있는 형태로 구조화하는 것이 핵심 과제였습니다.</p>
+    </section>
+
+    <!-- Approach -->
+    <section class="detail-section">
+      <h2><span class="section-index">03</span> Approach</h2>
+
+      <h3>시스템 아키텍처</h3>
+      <p>다음 네 개 컴포넌트로 구성된 End-to-End 파이프라인을 설계했습니다.</p>
+      <ul>
+        <li><strong>PA Data Assistant</strong> — LLM 기반 비정형→정형 변환 파이프라인. 대량의 자유 서술 텍스트를 감정·역량·행동 축으로 매핑하며, <strong>MapReduce 배치 처리</strong>로 수백 명 단위 데이터를 병렬 처리.</li>
+        <li><strong>PA Suggestion Agent</strong> — 정형화된 분석 결과를 입력으로 받아 조직장에게 전달할 인사이트(강점·리스크·코칭 포인트)를 제안하는 Agent.</li>
+        <li><strong>Network Graph</strong> — 동료평가·협업 언급 관계를 그래프로 구성하여 조직 내 소통 구조·허브 인물·사일로를 시각화.</li>
+        <li><strong>ToolJet 운영 인터페이스</strong> — 피플실 담당자가 코드 없이 데이터 업로드·분석 실행·리포트 추출을 수행할 수 있는 No-code 운영 콘솔.</li>
+      </ul>
+
+      <figure class="detail-figure">
+        <img src="../assets/projects/project-people-analytics-architecture.png" alt="AI 피플 애널리틱스 시스템 아키텍처 다이어그램">
+        <figcaption>Figure 1. System architecture of the AI People Analytics pipeline.</figcaption>
+      </figure>
+
+      <h3>Inhouse LLM — 데이터 보안 우선 설계</h3>
+      <p>평가 데이터는 개인 식별·인사 정보가 포함된 <strong>최고 민감도 데이터</strong>이기 때문에, 상용 LLM API를 외부로 호출하는 방식은 검토 단계에서 제외했습니다. 대신 <strong>Gemma · Llama · Mistral</strong>을 사내 인프라에 배포하여 모든 추론을 내부에서 수행했고, 모델 선택과 프롬프트는 다음 기준으로 튜닝했습니다.</p>
+      <ul>
+        <li>42개 감정 분류 체계에 대한 일관성 (동일 텍스트에 대한 라벨 안정성)</li>
+        <li>한국어 평가 어휘의 도메인 편향 보정</li>
+        <li>배치 처리 시 토큰당 처리 비용·추론 속도</li>
+      </ul>
+
+      <h3>Network Graph 시각화</h3>
+      <p>동료평가·하향평가에서 추출한 협업·언급 관계를 노드·엣지로 변환하여, 조직 내 허브 인물, 정보 흐름의 사일로, 크로스 팀 협업 패턴을 한눈에 볼 수 있도록 구성했습니다. 조직장은 이 그래프를 통해 개별 점수표에서는 드러나지 않는 <strong>구조적 관계</strong>를 파악할 수 있습니다.</p>
+
+      <figure class="detail-figure">
+        <img src="../assets/projects/project-people-analytics-networkgraph.png" alt="조직 내 협업·소통 구조를 시각화한 Network Graph">
+        <figcaption>Figure 2. Network graph visualization of intra-organization collaboration.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Timeline -->
+    <section class="detail-section">
+      <h2><span class="section-index">04</span> Timeline</h2>
+      <ul>
+        <li><strong>2023.10</strong> — Jira 프로젝트 생성, 데이터 수집·분석 착수</li>
+        <li><strong>2024.04</strong> — Phase #1 발표, 42개 감정 분류 체계 고도화, Gemma · Llama3 사내 환경 구축</li>
+        <li><strong>2024.04 – 05</strong> — 실 데이터 수령·분석 수행, 공유 대상 확정 (실장급, 올림포스·S2·JnK 조직)</li>
+        <li><strong>2024.06</strong> — 실장급 리포트 완성 및 메일 공유</li>
+        <li><strong>2024.11.14</strong> — PARI PA 컨퍼런스 공동 참석</li>
+      </ul>
+    </section>
+
+    <!-- Impact -->
+    <section class="detail-section">
+      <h2><span class="section-index">05</span> Impact</h2>
+      <ul>
+        <li><strong>분석 시간 85% 단축</strong> — 2주 이상 → 약 3일. 피플실이 고차원 분석·의사결정 지원에 리소스를 재배분할 수 있게 됨.</li>
+        <li><strong>대표이사 및 조직장 단위 리포트 공유</strong> — 실장급 이상 의사결정 라인에 분석 결과가 직접 전달.</li>
+        <li><strong>월간인재경영 2024.04호 협업 사례 기고</strong> — 업계 HR Tech 미디어에 본 프로젝트 사례가 게재. (<a href="https://www.abouthr.co.kr/news/articleView.html?idxno=6515" target="_blank" rel="noopener">링크</a>)</li>
+        <li><strong>후속 활용 요청</strong> — 피플실에서 2026년 평가 시즌에도 동일 파이프라인을 재사용하기 위한 연장 요청.</li>
+      </ul>
+    </section>
+
+    <!-- Takeaways -->
+    <section class="detail-section">
+      <h2><span class="section-index">06</span> Takeaways</h2>
+      <ul>
+        <li><strong>민감 데이터 × LLM은 "인프라 설계가 곧 제품 설계"</strong> — 모델 성능보다 데이터가 경계 밖으로 나가지 않는 구조를 먼저 확정하는 것이 신뢰를 얻는 가장 빠른 길이었음.</li>
+        <li><strong>No-code 운영 인터페이스(ToolJet)의 위력</strong> — 피플실 담당자가 개발자 개입 없이 파이프라인을 반복 실행·검증할 수 있게 되자, 실제 활용 빈도와 프로젝트 생존율이 크게 올라감.</li>
+        <li><strong>"점수표가 아닌 관계"를 보여주는 UI의 설득력</strong> — Network Graph는 숫자 리포트보다 조직장의 의사결정을 유의미하게 움직인 산출물이었음. 시각화의 선택이 곧 인사이트의 전달력.</li>
+      </ul>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="detail-section">
+      <h2><span class="section-index">07</span> Tech Stack</h2>
+      <div class="project-tags">
+        <span class="project-tag">Google Gemma</span>
+        <span class="project-tag">Llama</span>
+        <span class="project-tag">Mistral</span>
+        <span class="project-tag">Python</span>
+        <span class="project-tag">FastAPI</span>
+        <span class="project-tag">PostgreSQL</span>
+        <span class="project-tag">ToolJet</span>
+        <span class="project-tag">Network Graph</span>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 김성현. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <script src="../main.js"></script>
+</body>
+</html>
