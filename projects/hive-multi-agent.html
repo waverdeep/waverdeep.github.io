@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Agent 기반 고객 지원 자동화 시스템 (Hive) · 김성현 Sunghyun Kim</title>
+  <meta name="description" content="Graph 기반 Multi-Agent 오케스트레이션 시스템(Hive)으로 고객 문의 자동처리율 56%, 피크 시 Agent 기여율 34.4%를 달성한 프로젝트. 2개 실서비스 운영 중.">
+  <meta name="author" content="Sunghyun Kim (김성현)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fafaf7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+
+  <link rel="canonical" href="https://waverdeep.github.io/projects/hive-multi-agent.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Sunghyun Kim — Portfolio">
+  <meta property="og:title" content="Multi-Agent 기반 고객 지원 자동화 시스템 (Hive)">
+  <meta property="og:description" content="Graph 기반 Multi-Agent 오케스트레이션으로 고객 문의 자동처리율 56%를 달성한 프로덕션 시스템.">
+  <meta property="og:url" content="https://waverdeep.github.io/projects/hive-multi-agent.html">
+  <meta property="og:image" content="https://waverdeep.github.io/assets/profile.png">
+  <meta property="og:locale" content="ko_KR">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232e6f6a'/><text x='16' y='22' text-anchor='middle' font-family='ui-monospace,SFMono-Regular,Menlo,monospace' font-size='18' font-weight='700' fill='white'>K</text></svg>">
+
+  <!-- FOUC 방지: 테마를 먼저 적용 -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme');
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored || (systemDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">Portfolio</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#publications">Publications</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="테마 전환" type="button">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button class="nav-toggle" aria-label="메뉴 열기" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container detail-page">
+
+    <a href="../index.html#projects" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to Portfolio
+    </a>
+
+    <!-- Hero -->
+    <header class="detail-hero">
+      <div class="detail-eyebrow">Project · NEOWIZ S2본부 · 겜프스엔 협업</div>
+      <h1 class="detail-title">Multi-Agent 기반 고객 지원 자동화 시스템 <span style="opacity:.6;">(Hive)</span></h1>
+      <p class="detail-subtitle">평시 월 1,000건, 장애 시 6,000건까지 급증하는 고객 문의를 처리하기 위해 설계한 <strong>Graph 기반 Multi-Agent 오케스트레이션 시스템</strong>. Supervisor Agent가 문의를 분석해 하위 Agent로 hand-off하며, 피크 시 Agent 기여율 <strong>34.4%</strong>를 기록하고 2개 실서비스를 운영 중.</p>
+
+      <div class="detail-meta">
+        <span class="meta-badge">2024.09 — 2025.03</span>
+        <span class="meta-badge">AI 기술 리드</span>
+        <span class="meta-badge">자동처리율 ~56%</span>
+        <span class="meta-badge">피크일 2,319건 처리</span>
+        <span class="meta-badge">2개 실서비스 Live</span>
+      </div>
+    </header>
+
+    <!-- Metadata -->
+    <section class="detail-section">
+      <h2><span class="section-index">01</span> Metadata</h2>
+      <dl class="kv-grid">
+        <dt>기간</dt>
+        <dd>2024.09 — 2025.03 (7개월 개발), 이후 운영 지속</dd>
+        <dt>역할</dt>
+        <dd>AI 기술 리드 — 시스템 설계 · Multi-Agent 오케스트레이션 · 프로덕션 배포</dd>
+        <dt>협업</dt>
+        <dd>신기술Lab · S2본부 운영팀 · 겜프스엔</dd>
+        <dt>서비스</dt>
+        <dd>브라운더스트2 FAQ + CS 자동화 · 피망 뉴맞고 FAQ</dd>
+        <dt>키워드</dt>
+        <dd>Multi-Agent · Graph · Supervisor-Worker · LLM Orchestration · Langfuse</dd>
+      </dl>
+    </section>
+
+    <!-- Problem -->
+    <section class="detail-section">
+      <h2><span class="section-index">02</span> Problem</h2>
+      <p>실서비스 운영팀은 평시 월 1,000건, 장애 시 <strong>6,000건까지 급증</strong>하는 고객 문의를 소수 인력으로 수작업 처리하고 있었습니다. 계정 분실, 결제 오류, 아이템 미지급 등 유형별 대응 절차가 달라 일관된 처리가 어려웠고, 피크 시에는 대응 지연이 불가피했습니다.</p>
+      <div class="detail-callout">
+        <strong>"문의 유형에 따라 대응 절차가 달라지는데, 이걸 사람이 매번 분기해서 처리하고 있다. 자동화하려면 분기 자체가 지능적이어야 한다."</strong>
+      </div>
+      <p>단일 LLM 프롬프트로 모든 유형을 처리하는 접근은 운영팀 인터뷰 단계에서 일찍 기각되었습니다. 유형별 <strong>데이터 소스·승인 절차·Action API</strong>가 서로 달랐고, 하나의 거대한 프롬프트로 묶을수록 품질이 나빠지는 구조였기 때문입니다.</p>
+    </section>
+
+    <!-- Approach -->
+    <section class="detail-section">
+      <h2><span class="section-index">03</span> Approach</h2>
+
+      <h3>Hive — Graph 기반 Multi-Agent 오케스트레이션</h3>
+      <p>유형별 대응 절차를 독립된 Agent로 분리하고, 상위의 Supervisor Agent가 문의를 라우팅하는 구조로 설계했습니다. Agent 간 관계를 Graph로 모델링하여 Agent 추가·변경 시 전체 시스템을 다시 설계하지 않아도 되도록 했습니다.</p>
+
+      <ul>
+        <li><strong>Supervisor Agent</strong> — 사용자 문의를 분석하여 적합한 하위 Agent(계정분실, 결제, 아이템 미지급 등)로 hand-off.</li>
+        <li><strong>Worker Agents</strong> — 각 Agent는 <strong>Interaction → Report → Action</strong>의 3단계로 동작. 사용자와의 대화로 정보를 수집하고(Interaction), 처리 가능 여부와 근거를 구조화한 뒤(Report), 실제 조치를 수행(Action)하는 명확한 책임 경계.</li>
+        <li><strong>Admin 운영툴</strong> — 비개발자(운영팀)가 직접 Agent 정의·프롬프트·정책을 생성·관리할 수 있는 인터페이스. 유형 추가가 개발 병목이 되지 않도록 하는 것이 핵심이었음.</li>
+        <li><strong>Langfuse 트레이싱</strong> — Supervisor → Worker hand-off, 각 단계의 LLM 호출, 최종 Action까지의 흐름을 전 구간 추적하여 품질 모니터링과 실패 원인 분석에 사용.</li>
+      </ul>
+
+      <h3>왜 Graph 구조인가</h3>
+      <p>단순 트리가 아닌 Graph로 설계한 이유는, 실제 운영에서 Agent 간 <strong>공유 컨텍스트와 cross-referral</strong>이 빈번하게 발생하기 때문입니다. 결제 오류가 계정 이슈와 얽혀 있거나, 아이템 미지급이 장애 이벤트와 연결되는 등 단방향 분기만으로는 표현되지 않는 케이스가 많았습니다. Graph 구조는 새로운 Agent를 기존 노드 사이에 삽입하는 형태의 확장을 자연스럽게 허용합니다.</p>
+    </section>
+
+    <!-- Timeline -->
+    <section class="detail-section">
+      <h2><span class="section-index">04</span> Timeline</h2>
+      <ul>
+        <li><strong>2024.09</strong> — 운영팀 인터뷰, Pain Point 분석</li>
+        <li><strong>2024.09.20</strong> — 시스템 설계 (NetworkGraph 구조 확정)</li>
+        <li><strong>2024.09.27</strong> — 프로토타입 1차</li>
+        <li><strong>2024.10 — 11</strong> — 챗봇 구현, 유형별 Worker Agent 개발</li>
+        <li><strong>2025.01.17</strong> — 개발 완료</li>
+        <li><strong>2025.01.24</strong> — 내부 QA</li>
+        <li><strong>2025.02</strong> — S2본부 1·2차 QA</li>
+        <li><strong>2025.02.27 — 03.14</strong> — 라이브 환경 배포</li>
+        <li><strong>2025.03.14</strong> — 정식 런칭</li>
+      </ul>
+    </section>
+
+    <!-- Impact -->
+    <section class="detail-section">
+      <h2><span class="section-index">05</span> Impact <span style="opacity:.55; font-weight:500; font-size:.8em;">· 2025.07 운영 리포트 기준</span></h2>
+      <ul>
+        <li><strong>자동처리율 ~56%</strong> — 문의 절반 이상을 운영팀 개입 없이 Agent가 종결.</li>
+        <li><strong>피크 시 Agent 기여율 34.4%</strong> — 평상시 약 14%에서, 장애 등 문의 급증 시점에 자동처리 비중이 크게 상승. 운영팀이 감당하기 어려운 피크를 Agent가 실제로 흡수.</li>
+        <li><strong>피크일 기준 2,319건 처리</strong> — 단일 일자에 Agent가 종결한 문의 수.</li>
+        <li><strong>담당자 소통 단계 감소</strong> — Report 단계에서 근거가 구조화되어 전달되므로, 에스컬레이션 시에도 운영자가 확인해야 할 맥락이 줄어듦.</li>
+        <li><strong>2개 실서비스 동시 운영</strong> — 브라운더스트2(FAQ + CS 자동화), 피망 뉴맞고(FAQ).</li>
+      </ul>
+    </section>
+
+    <!-- Takeaways -->
+    <section class="detail-section">
+      <h2><span class="section-index">06</span> Takeaways</h2>
+      <ul>
+        <li><strong>"하나의 똑똑한 프롬프트"보다 "책임이 분리된 작은 Agent들"</strong> — 유형마다 데이터·승인·Action이 다른 도메인에서는 단일 LLM 프롬프트를 키우는 방향이 빠르게 한계에 부딪혔음. 책임 경계를 Agent 단위로 분리하고 Supervisor가 라우팅하는 구조가 품질·확장성 모두에서 우세.</li>
+        <li><strong>Agent 생성권을 비개발자에게 넘긴 것이 지속성의 열쇠</strong> — Admin 운영툴로 운영팀이 직접 Agent를 정의·수정할 수 있게 되자, 유형 추가가 개발 큐에 쌓이지 않고 운영 사이클 안에서 해결됨. 실제 자동처리율은 런칭 이후에도 계속 개선.</li>
+        <li><strong>Langfuse 트레이싱은 "모니터링 도구"가 아니라 "설계 피드백 루프"</strong> — Supervisor hand-off 오류, Worker의 Report 누락 등 문제의 원인이 구간 단위로 드러나자, 설계 의사결정을 데이터 기반으로 내릴 수 있게 됨.</li>
+        <li><strong>피크 때 진가가 드러나는 시스템</strong> — 평상시 14% / 피크 34.4%라는 숫자는, 자동화가 "평상시를 약간 편하게" 하는 것이 아니라 "피크의 대응 한계를 늘리는" 역할로 기능했음을 보여줌.</li>
+      </ul>
+    </section>
+
+    <!-- Transferable Value -->
+    <section class="detail-section">
+      <h2><span class="section-index">07</span> Transferable Value</h2>
+      <p>본 프레임워크는 <strong>고객 문의가 유형별로 서로 다른 처리 절차를 가지는 도메인</strong>이라면 그대로 이식 가능합니다. 이커머스 CS(배송·환불·교환), 금융 고객지원(계정·거래·분쟁), SaaS 기술지원(결제·권한·버그 리포트) 등에서 Supervisor-Worker 분리와 NetworkGraph 확장성의 이점이 동일하게 적용됩니다.</p>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="detail-section">
+      <h2><span class="section-index">08</span> Tech Stack</h2>
+      <div class="project-tags">
+        <span class="project-tag">OpenAI API</span>
+        <span class="project-tag">TypeScript</span>
+        <span class="project-tag">Node.js</span>
+        <span class="project-tag">PostgreSQL</span>
+        <span class="project-tag">Redis</span>
+        <span class="project-tag">AWS ECS</span>
+        <span class="project-tag">Langfuse</span>
+        <span class="project-tag">NetworkGraph</span>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 김성현. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <script src="../main.js"></script>
+</body>
+</html>

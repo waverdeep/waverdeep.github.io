@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사업/운영 특화 생성형 지식 검색 시스템 (SAGA) · 김성현 Sunghyun Kim</title>
+  <meta name="description" content="OpenSearch 기반 BM25 + Neural Vector 하이브리드 검색, Docling / Vertex AI 문서 변환, MCP 프로토콜, RAGAS 품질 검증, 도메인 Custom Dictionary를 결합하여 전사 Live로 운영 중인 프로젝트별 지식 검색 시스템.">
+  <meta name="author" content="Sunghyun Kim (김성현)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fafaf7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+
+  <link rel="canonical" href="https://waverdeep.github.io/projects/saga.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Sunghyun Kim — Portfolio">
+  <meta property="og:title" content="사업/운영 특화 생성형 지식 검색 시스템 (SAGA)">
+  <meta property="og:description" content="하이브리드 검색 + Document Intelligence + RAGAS 품질 검증으로 전사 Live 운영 중인 RAG 시스템.">
+  <meta property="og:url" content="https://waverdeep.github.io/projects/saga.html">
+  <meta property="og:image" content="https://waverdeep.github.io/assets/profile.png">
+  <meta property="og:locale" content="ko_KR">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%232e6f6a'/><text x='16' y='22' text-anchor='middle' font-family='ui-monospace,SFMono-Regular,Menlo,monospace' font-size='18' font-weight='700' fill='white'>K</text></svg>">
+
+  <!-- FOUC 방지: 테마를 먼저 적용 -->
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem('theme');
+        var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored || (systemDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">Portfolio</a>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#experience">Experience</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#publications">Publications</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" aria-label="테마 전환" type="button">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button class="nav-toggle" aria-label="메뉴 열기" type="button">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container detail-page">
+
+    <a href="../index.html#projects" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to Portfolio
+    </a>
+
+    <!-- Hero -->
+    <header class="detail-hero">
+      <div class="detail-eyebrow">Project · NeoChat PRO 내 "문서 지식베이스"</div>
+      <h1 class="detail-title">사업/운영 특화 생성형 지식 검색 시스템 <span style="opacity:.6;">(SAGA)</span></h1>
+      <p class="detail-subtitle">프로젝트별로 축적된 기획서·운영 리포트·마케팅 자료·계약서 등을 맥락에 맞게 검색·활용할 수 있도록 설계한 <strong>하이브리드 RAG 시스템</strong>. OpenSearch 기반 BM25 + Neural Vector 검색, Docling / Vertex AI 문서 변환, MCP 프로토콜, RAGAS 품질 검증, 도메인 Custom Dictionary까지 포함한 End-to-End 파이프라인으로 전사 Live 운영 중.</p>
+
+      <div class="detail-meta">
+        <span class="meta-badge">2025.06 — 2025.12</span>
+        <span class="meta-badge">시스템 설계 · 검색 파이프라인 · 전처리</span>
+        <span class="meta-badge">전사 Live</span>
+        <span class="meta-badge">요구사항 커버리지 ~90%</span>
+      </div>
+    </header>
+
+    <!-- Metadata -->
+    <section class="detail-section">
+      <h2><span class="section-index">01</span> Metadata</h2>
+      <dl class="kv-grid">
+        <dt>기간</dt>
+        <dd>2025.06 — 2025.12 (6~7개월) · 개발 완료 → 전사 Live</dd>
+        <dt>역할</dt>
+        <dd>시스템 설계 · 검색 파이프라인 개발 · OpenSearch Custom Dictionary 연구 · 문서 전처리 파이프라인 개발</dd>
+        <dt>서비스</dt>
+        <dd>NeoChat PRO 내 "문서 지식베이스" (saga.ai.nwz.cloud MCP API)</dd>
+        <dt>도메인</dt>
+        <dd>RAG · Hybrid Search · Document Intelligence · MCP</dd>
+        <dt>키워드</dt>
+        <dd>OpenSearch · BM25 + Neural Vector · Docling · Vertex AI · RAGAS · FastMCP</dd>
+      </dl>
+    </section>
+
+    <!-- Problem -->
+    <section class="detail-section">
+      <h2><span class="section-index">02</span> Problem</h2>
+      <p>Mimir를 통한 전사 통합 검색은 이미 제공되고 있었지만, <strong>프로젝트별로 축적된 문서</strong>(기획서, 운영 리포트, 마케팅 자료, 계약서 등)를 맥락에 맞게 검색·활용하는 기능은 부족했습니다. "이 프로젝트 안에서만, 최신 버전 기준으로" 찾고 싶다는 요구가 많았지만, 전사 검색은 입자가 너무 거칠었습니다.</p>
+      <div class="detail-callout">
+        <strong>"전사 검색은 넓이를, SAGA는 깊이를 담당한다."</strong>
+      </div>
+      <p>게다가 기획서·계약서 같은 문서는 PDF·PPT·표·이미지가 섞여 있어 단순 텍스트 추출로는 품질이 나오지 않았습니다. 도메인 용어(사내 프로젝트 코드명, 약어)는 일반 tokenizer로 잘리면 검색 결과가 크게 저하되었고, RAG 품질을 <strong>지속적으로 측정·개선할 수 있는 루프</strong>도 함께 필요했습니다.</p>
+    </section>
+
+    <!-- Approach -->
+    <section class="detail-section">
+      <h2><span class="section-index">03</span> Approach</h2>
+
+      <h3>Hybrid Search — BM25 + Neural Vector</h3>
+      <p>OpenSearch 기반으로 <strong>BM25(어휘 일치)와 Neural Vector(의미 유사도)를 50:50으로 결합</strong>했습니다. 사내 문서는 고유명사·약어 비중이 높아 BM25 단독이 강하지만, 의도 기반 질의(예: "작년 대규모 업데이트 때 무슨 이슈가 있었지?")에는 Neural이 필요합니다. 둘 다 쓰는 게 아니라 <strong>어느 비율로 섞을지</strong>가 핵심이었고, 실제 질의 로그로 튜닝했습니다.</p>
+
+      <h3>Document Intelligence — Docling Serve (primary) / Vertex AI (fallback)</h3>
+      <p>PDF·PPT·표·이미지가 섞인 문서를 구조 보존 상태로 변환하기 위해 Docling Serve를 primary로 사용하고, 복잡한 레이아웃이나 이미지 비중이 큰 문서에는 Vertex AI Gemini를 fallback으로 두었습니다. 변환 결과는 markdown으로 통일하여 downstream의 chunking·임베딩 파이프라인이 형식에 무관하게 동작하도록 했습니다.</p>
+
+      <h3>Preprocessing Pipeline — saga-research-cli</h3>
+      <p>문서에서 <strong>metadata · markdown · summary · keywords</strong>를 자동 추출 → OpenSearch ML 파이프라인으로 임베딩·인덱싱하는 CLI 도구를 개발했습니다. summary·keywords는 검색 품질뿐 아니라 사용자에게 보여지는 미리보기·필터링 UX에도 활용됩니다.</p>
+
+      <h3>OpenSearch Custom Dictionary</h3>
+      <p>사내 프로젝트 코드명, 약어, 도메인 용어를 반영한 tokenizer / filter / analyzer를 커스터마이즈했습니다. 일반 한국어 tokenizer는 고유명사를 깨뜨리기 쉬워 BM25 쪽 품질이 크게 저하되었는데, Custom Dictionary 적용 후 실제 질의에서 명사구 리콜이 눈에 띄게 개선됐습니다.</p>
+
+      <h3>MCP 프로토콜 — AI Agent가 직접 질의</h3>
+      <p>NeoChat PRO와 Claude Desktop 같은 MCP 클라이언트가 SAGA를 도구로 직접 호출할 수 있도록 <code>search_project_docs</code>, <code>get_document_content</code> 등의 MCP tool을 노출했습니다. 이로써 Agent는 대화 중에 "프로젝트 X의 기획서를 찾아서 근거로 쓰는" 동작을 자연스럽게 수행할 수 있습니다.</p>
+
+      <h3>RAGAS 기반 품질 검증 루프</h3>
+      <p>문서별 Q&amp;A pair를 자동 생성하고 RAGAS로 검색·생성 품질 점수를 측정하는 회귀 테스트 체계를 구축했습니다. 문서가 추가될 때마다 품질 지표를 재측정하여, 임베딩 모델·검색 파라미터·전처리 옵션을 바꾸는 의사결정을 <strong>감이 아니라 숫자</strong>로 할 수 있게 만든 것이 핵심.</p>
+    </section>
+
+    <!-- Phase Plan -->
+    <section class="detail-section">
+      <h2><span class="section-index">04</span> 4단계 구현 계획</h2>
+      <ul>
+        <li><strong>Phase 1 — MVP</strong>: 파일 업로드 &amp; RAG</li>
+        <li><strong>Phase 2 — Mimir 연동</strong>: JIRA / Wiki 통합, 프로젝트별 필터링</li>
+        <li><strong>Phase 3 — Vertex AI 연동</strong>: Google Workspace 데이터 통합</li>
+        <li><strong>Phase 4 — 외부 시스템 연동</strong>: 커뮤니티분석툴 · 태블로 · 법률자문시스템</li>
+      </ul>
+    </section>
+
+    <!-- Impact -->
+    <section class="detail-section">
+      <h2><span class="section-index">05</span> Impact</h2>
+      <ul>
+        <li><strong>NeoChat PRO 내 "문서 지식베이스"로 전사 Live 운영</strong> — 임직원이 일상적으로 사용하는 지식 검색 접점.</li>
+        <li><strong>Phase 1 요구사항 커버리지 약 90%</strong> — MVP 범위를 실 사용자 관점에서 검증.</li>
+        <li><strong>MCP 프로토콜로 Agent 직접 접근</strong> — NeoChat PRO, Claude Desktop 등 MCP 호환 Agent가 SAGA를 도구로 활용 가능. RAG가 "별도 검색 UI"가 아니라 "Agent의 능력"이 됨.</li>
+        <li><strong>전사 AI 활용 전략 로드맵 명시</strong> — 조직의 공식 AI 로드맵에서 지식 계층을 담당하는 컴포넌트로 자리매김.</li>
+      </ul>
+    </section>
+
+    <!-- Takeaways -->
+    <section class="detail-section">
+      <h2><span class="section-index">06</span> Takeaways</h2>
+      <ul>
+        <li><strong>"Neural이 BM25를 이긴다"는 통념은 도메인에 따라 다르다</strong> — 고유명사·약어 비중이 높은 사내 문서에서는 BM25가 여전히 강력했고, 비율 튜닝과 Custom Dictionary가 모델 교체보다 더 큰 품질 이득을 줌.</li>
+        <li><strong>문서 변환 품질이 곧 RAG 품질</strong> — 아무리 좋은 임베딩·검색을 써도 Docling 단계에서 표가 깨지면 downstream이 복구할 수 없음. Document Intelligence 계층에 시간 투자한 것이 가장 큰 ROI를 냈음.</li>
+        <li><strong>RAGAS 회귀 테스트가 의사결정 방식을 바꿈</strong> — "이게 더 좋아진 것 같아요"라는 체감 기반 개선에서, "지표가 X에서 Y로 올랐다"는 숫자 기반 개선으로 팀의 대화 방식이 이동함.</li>
+        <li><strong>MCP로 RAG를 "기능"이 아닌 "도구"로 노출한 것의 파급력</strong> — 검색 UI를 만드는 대신 MCP tool을 노출하자, 별도 UX 없이도 NeoChat PRO의 모든 워크플로우가 SAGA를 쓸 수 있게 됨.</li>
+      </ul>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="detail-section">
+      <h2><span class="section-index">07</span> Tech Stack</h2>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">FastAPI</span>
+        <span class="project-tag">OpenSearch</span>
+        <span class="project-tag">BM25 + Neural Vector</span>
+        <span class="project-tag">OpenAI API</span>
+        <span class="project-tag">Vertex AI</span>
+        <span class="project-tag">Docling Serve</span>
+        <span class="project-tag">FastMCP</span>
+        <span class="project-tag">RAGAS</span>
+        <span class="project-tag">PostgreSQL</span>
+        <span class="project-tag">Redis</span>
+        <span class="project-tag">AWS ECS</span>
+        <span class="project-tag">S3</span>
+        <span class="project-tag">Keycloak SSO</span>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2026 김성현. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <script src="../main.js"></script>
+</body>
+</html>
