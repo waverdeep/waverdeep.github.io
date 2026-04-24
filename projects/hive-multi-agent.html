@@ -79,13 +79,13 @@
 
     <!-- Hero -->
     <header class="detail-hero">
-      <div class="detail-eyebrow">Project · NEOWIZ S2본부 · 겜프스엔 협업</div>
-      <h1 class="detail-title">Multi-Agent 기반 고객 지원 자동화 시스템 <span style="opacity:.6;">(Hive)</span></h1>
-      <p class="detail-subtitle">평시 월 1,000건, 장애 시 6,000건까지 급증하는 고객 문의를 처리하기 위해 설계한 <strong>Graph 기반 Multi-Agent 오케스트레이션 시스템</strong>. Supervisor Agent가 문의를 분석해 하위 Agent로 hand-off하며, 피크 시 Agent 기여율 <strong>34.4%</strong>를 기록하고 2개 실서비스를 운영 중.</p>
+      <div class="detail-eyebrow">Project · NEOWIZ 게임 운영팀 · 겜프스엔 협업</div>
+      <h1 class="detail-title">Multi-Agent 기반 고객 지원 자동화 시스템</h1>
+      <p class="detail-subtitle">장애가 터지면 고객 문의는 하루 6,000건까지 치솟습니다. 이 급증을 사람 대신 흡수하기 위해 설계한 <strong>Graph 기반 Multi-Agent 오케스트레이션 시스템</strong> — 문의 유형별로 Agent의 책임을 나누고, Supervisor가 적합한 Agent로 라우팅합니다. Interaction → Report → Action 3단계로 동작하며, 피크 시 Agent 기여율 <strong>34.4%</strong>를 기록하면서 2개 실서비스를 운영 중입니다.</p>
 
       <div class="detail-meta">
-        <span class="meta-badge">2024.09 — 2025.03</span>
-        <span class="meta-badge">AI 기술 리드</span>
+        <span class="meta-badge">2024.09 — 2025.03 · 운영 중</span>
+        <span class="meta-badge">AI Tech Lead</span>
         <span class="meta-badge">자동처리율 ~56%</span>
         <span class="meta-badge">피크일 2,319건 처리</span>
         <span class="meta-badge">2개 실서비스 Live</span>
@@ -99,20 +99,20 @@
         <dt>기간</dt>
         <dd>2024.09 — 2025.03 (7개월 개발), 이후 운영 지속</dd>
         <dt>역할</dt>
-        <dd>AI 기술 리드 — 시스템 설계 · Multi-Agent 오케스트레이션 · 프로덕션 배포</dd>
+        <dd>AI Tech Lead — 시스템 설계 · Multi-Agent 오케스트레이션 · 프로덕션 배포</dd>
         <dt>협업</dt>
-        <dd>신기술Lab · S2본부 운영팀 · 겜프스엔</dd>
+        <dd>신기술Lab · 게임 운영팀 · 겜프스엔</dd>
         <dt>서비스</dt>
         <dd>브라운더스트2 FAQ + CS 자동화 · 피망 뉴맞고 FAQ</dd>
         <dt>키워드</dt>
-        <dd>Multi-Agent · Graph · Supervisor-Worker · LLM Orchestration · Langfuse</dd>
+        <dd>Multi-Agent Orchestration · Supervisor Pattern · Agent Hand-off · Interaction/Report/Action · Langfuse</dd>
       </dl>
     </section>
 
     <!-- Problem -->
     <section class="detail-section">
       <h2><span class="section-index">02</span> Problem</h2>
-      <p>실서비스 운영팀은 평시 월 1,000건, 장애 시 <strong>6,000건까지 급증</strong>하는 고객 문의를 소수 인력으로 수작업 처리하고 있었습니다. 계정 분실, 결제 오류, 아이템 미지급 등 유형별 대응 절차가 달라 일관된 처리가 어려웠고, 피크 시에는 대응 지연이 불가피했습니다.</p>
+      <p>실서비스 운영팀은 월 평균 1,000건, 장애 시에는 <strong>하루 6,000건까지 급증</strong>하는 고객 문의를 소수 인력으로 수작업 처리하고 있었습니다. 계정 분실, 결제 오류, 아이템 미지급 등 유형별 대응 절차가 달라 일관된 처리가 어려웠고, 피크 시에는 대응 지연이 불가피했습니다.</p>
       <div class="detail-callout">
         <strong>"문의 유형에 따라 대응 절차가 달라지는데, 이걸 사람이 매번 분기해서 처리하고 있다. 자동화하려면 분기 자체가 지능적이어야 한다."</strong>
       </div>
