@@ -1076,6 +1076,31 @@ section[id] {
   letter-spacing: 0.01em;
 }
 
+/* 여러 figure를 한 행에 나란히 — 모바일에서는 자동으로 세로 스택 */
+.figure-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.figure-row .detail-figure {
+  margin: 0;
+}
+
+.figure-row .detail-figure img {
+  max-height: 420px;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .figure-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Callout — pull-quote / 핵심 메시지 */
 .detail-callout {
   margin: 1.5rem 0;
