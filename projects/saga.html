@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>사업/운영 특화 생성형 지식 검색 시스템 (SAGA) · 김성현 Sunghyun Kim</title>
+  <title>SAGA: 사업/운영 특화 생성형 지식 검색 서비스 · 김성현 Sunghyun Kim</title>
   <meta name="description" content="OpenSearch 기반 BM25 + Neural Vector 하이브리드 검색, Docling / Vertex AI 문서 변환, MCP 프로토콜, RAGAS 품질 검증, 도메인 Custom Dictionary를 결합하여 전사 Live로 운영 중인 프로젝트별 지식 검색 시스템.">
   <meta name="author" content="Sunghyun Kim (김성현)">
   <meta name="color-scheme" content="light dark">
@@ -15,7 +15,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Sunghyun Kim — Portfolio">
-  <meta property="og:title" content="사업/운영 특화 생성형 지식 검색 시스템 (SAGA)">
+  <meta property="og:title" content="SAGA: 사업/운영 특화 생성형 지식 검색 서비스">
   <meta property="og:description" content="하이브리드 검색 + Document Intelligence + RAGAS 품질 검증으로 전사 Live 운영 중인 RAG 시스템.">
   <meta property="og:url" content="https://waverdeep.github.io/projects/saga.html">
   <meta property="og:image" content="https://waverdeep.github.io/assets/profile.png">
@@ -80,12 +80,12 @@
     <!-- Hero -->
     <header class="detail-hero">
       <div class="detail-eyebrow">Project · NeoChat PRO 내 "문서 지식베이스"</div>
-      <h1 class="detail-title">사업/운영 특화 생성형 지식 검색 시스템 <span style="opacity:.6;">(SAGA)</span></h1>
+      <h1 class="detail-title">SAGA: 사업/운영 특화 생성형 지식 검색 서비스</h1>
       <p class="detail-subtitle">프로젝트별로 축적된 기획서·운영 리포트·마케팅 자료·계약서 등을 맥락에 맞게 검색·활용할 수 있도록 설계한 <strong>하이브리드 RAG 시스템</strong>. OpenSearch 기반 BM25 + Neural Vector 검색, Docling / Vertex AI 문서 변환, MCP 프로토콜, RAGAS 품질 검증, 도메인 Custom Dictionary까지 포함한 End-to-End 파이프라인으로 전사 Live 운영 중.</p>
 
       <div class="detail-meta">
-        <span class="meta-badge">2025.06 — 2025.12</span>
-        <span class="meta-badge">시스템 설계 · 검색 파이프라인 · 전처리</span>
+        <span class="meta-badge">2025.06 — 2025.12 · 운영 중</span>
+        <span class="meta-badge">문서 전처리 파이프라인 구축 · 검색 파이프라인 설계</span>
         <span class="meta-badge">전사 Live</span>
         <span class="meta-badge">요구사항 커버리지 ~90%</span>
       </div>
@@ -96,15 +96,15 @@
       <h2><span class="section-index">01</span> Metadata</h2>
       <dl class="kv-grid">
         <dt>기간</dt>
-        <dd>2025.06 — 2025.12 (6~7개월) · 개발 완료 → 전사 Live</dd>
+        <dd>2025.06 — 2025.12 · 운영 중</dd>
         <dt>역할</dt>
-        <dd>시스템 설계 · 검색 파이프라인 개발 · OpenSearch Custom Dictionary 연구 · 문서 전처리 파이프라인 개발</dd>
+        <dd>문서 전처리 파이프라인 구축 · 검색 파이프라인 설계 · OpenSearch Custom Dictionary 연구</dd>
         <dt>서비스</dt>
-        <dd>NeoChat PRO 내 "문서 지식베이스" (saga.ai.nwz.cloud MCP API)</dd>
+        <dd>NeoChat PRO 내 "문서 지식베이스"</dd>
         <dt>도메인</dt>
         <dd>RAG · Hybrid Search · Document Intelligence · MCP</dd>
         <dt>키워드</dt>
-        <dd>OpenSearch · BM25 + Neural Vector · Docling · Vertex AI · RAGAS · FastMCP</dd>
+        <dd>OpenSearch · BM25 + Neural Vector · Docling · Vertex AI · RAGAS · FastMCP · Custom Dictionary</dd>
       </dl>
     </section>
 
@@ -122,8 +122,18 @@
     <section class="detail-section">
       <h2><span class="section-index">03</span> Approach</h2>
 
+      <figure class="detail-figure">
+        <img src="../assets/projects/project-saga-architecture.png" alt="SAGA 시스템 아키텍처 — Client layer, SAGA 코어(문서 처리·하이브리드 검색·MCP 서버), Infrastructure">
+        <figcaption>Figure 1. SAGA 시스템 아키텍처 — 사용자/AI 에이전트 → 문서 처리·하이브리드 검색·MCP 서버 → Infrastructure.</figcaption>
+      </figure>
+
       <h3>Hybrid Search — BM25 + Neural Vector</h3>
       <p>OpenSearch 기반으로 <strong>BM25(어휘 일치)와 Neural Vector(의미 유사도)를 50:50으로 결합</strong>했습니다. 사내 문서는 고유명사·약어 비중이 높아 BM25 단독이 강하지만, 의도 기반 질의(예: "작년 대규모 업데이트 때 무슨 이슈가 있었지?")에는 Neural이 필요합니다. 둘 다 쓰는 게 아니라 <strong>어느 비율로 섞을지</strong>가 핵심이었고, 실제 질의 로그로 튜닝했습니다.</p>
+
+      <figure class="detail-figure">
+        <img src="../assets/projects/project-saga-user-question.png" alt="SAGA 하이브리드 검색 흐름 — BM25 + Neural Vector 50:50 결합">
+        <figcaption>Figure 2. 하이브리드 검색 흐름 — BM25 키워드 검색과 Neural Vector 검색을 50:50으로 가중 결합.</figcaption>
+      </figure>
 
       <h3>Document Intelligence — Docling Serve (primary) / Vertex AI (fallback)</h3>
       <p>PDF·PPT·표·이미지가 섞인 문서를 구조 보존 상태로 변환하기 위해 Docling Serve를 primary로 사용하고, 복잡한 레이아웃이나 이미지 비중이 큰 문서에는 Vertex AI Gemini를 fallback으로 두었습니다. 변환 결과는 markdown으로 통일하여 downstream의 chunking·임베딩 파이프라인이 형식에 무관하게 동작하도록 했습니다.</p>
@@ -131,30 +141,21 @@
       <h3>Preprocessing Pipeline — saga-research-cli</h3>
       <p>문서에서 <strong>metadata · markdown · summary · keywords</strong>를 자동 추출 → OpenSearch ML 파이프라인으로 임베딩·인덱싱하는 CLI 도구를 개발했습니다. summary·keywords는 검색 품질뿐 아니라 사용자에게 보여지는 미리보기·필터링 UX에도 활용됩니다.</p>
 
+      <figure class="detail-figure">
+        <img src="../assets/projects/project-saga-document-pipeline.png" alt="SAGA 문서 전처리 파이프라인 — 업로드→파싱→AI 인사이트→인덱싱">
+        <figcaption>Figure 3. 문서 전처리 파이프라인 — 업로드 → 파싱(OCR 포함) → AI 인사이트 추출 → 청크 단위 벡터 임베딩 → 프로젝트별 지식베이스 인덱싱.</figcaption>
+      </figure>
+
       <h3>OpenSearch Custom Dictionary</h3>
       <p>사내 프로젝트 코드명, 약어, 도메인 용어를 반영한 tokenizer / filter / analyzer를 커스터마이즈했습니다. 일반 한국어 tokenizer는 고유명사를 깨뜨리기 쉬워 BM25 쪽 품질이 크게 저하되었는데, Custom Dictionary 적용 후 실제 질의에서 명사구 리콜이 눈에 띄게 개선됐습니다.</p>
-
-      <h3>MCP 프로토콜 — AI Agent가 직접 질의</h3>
-      <p>NeoChat PRO와 Claude Desktop 같은 MCP 클라이언트가 SAGA를 도구로 직접 호출할 수 있도록 <code>search_project_docs</code>, <code>get_document_content</code> 등의 MCP tool을 노출했습니다. 이로써 Agent는 대화 중에 "프로젝트 X의 기획서를 찾아서 근거로 쓰는" 동작을 자연스럽게 수행할 수 있습니다.</p>
 
       <h3>RAGAS 기반 품질 검증 루프</h3>
       <p>문서별 Q&amp;A pair를 자동 생성하고 RAGAS로 검색·생성 품질 점수를 측정하는 회귀 테스트 체계를 구축했습니다. 문서가 추가될 때마다 품질 지표를 재측정하여, 임베딩 모델·검색 파라미터·전처리 옵션을 바꾸는 의사결정을 <strong>감이 아니라 숫자</strong>로 할 수 있게 만든 것이 핵심.</p>
     </section>
 
-    <!-- Phase Plan -->
-    <section class="detail-section">
-      <h2><span class="section-index">04</span> 4단계 구현 계획</h2>
-      <ul>
-        <li><strong>Phase 1 — MVP</strong>: 파일 업로드 &amp; RAG</li>
-        <li><strong>Phase 2 — Mimir 연동</strong>: JIRA / Wiki 통합, 프로젝트별 필터링</li>
-        <li><strong>Phase 3 — Vertex AI 연동</strong>: Google Workspace 데이터 통합</li>
-        <li><strong>Phase 4 — 외부 시스템 연동</strong>: 커뮤니티분석툴 · 태블로 · 법률자문시스템</li>
-      </ul>
-    </section>
-
     <!-- Impact -->
     <section class="detail-section">
-      <h2><span class="section-index">05</span> Impact</h2>
+      <h2><span class="section-index">04</span> Impact</h2>
       <ul>
         <li><strong>NeoChat PRO 내 "문서 지식베이스"로 전사 Live 운영</strong> — 임직원이 일상적으로 사용하는 지식 검색 접점.</li>
         <li><strong>Phase 1 요구사항 커버리지 약 90%</strong> — MVP 범위를 실 사용자 관점에서 검증.</li>
@@ -165,18 +166,17 @@
 
     <!-- Takeaways -->
     <section class="detail-section">
-      <h2><span class="section-index">06</span> Takeaways</h2>
+      <h2><span class="section-index">05</span> Takeaways</h2>
       <ul>
         <li><strong>"Neural이 BM25를 이긴다"는 통념은 도메인에 따라 다르다</strong> — 고유명사·약어 비중이 높은 사내 문서에서는 BM25가 여전히 강력했고, 비율 튜닝과 Custom Dictionary가 모델 교체보다 더 큰 품질 이득을 줌.</li>
         <li><strong>문서 변환 품질이 곧 RAG 품질</strong> — 아무리 좋은 임베딩·검색을 써도 Docling 단계에서 표가 깨지면 downstream이 복구할 수 없음. Document Intelligence 계층에 시간 투자한 것이 가장 큰 ROI를 냈음.</li>
         <li><strong>RAGAS 회귀 테스트가 의사결정 방식을 바꿈</strong> — "이게 더 좋아진 것 같아요"라는 체감 기반 개선에서, "지표가 X에서 Y로 올랐다"는 숫자 기반 개선으로 팀의 대화 방식이 이동함.</li>
-        <li><strong>MCP로 RAG를 "기능"이 아닌 "도구"로 노출한 것의 파급력</strong> — 검색 UI를 만드는 대신 MCP tool을 노출하자, 별도 UX 없이도 NeoChat PRO의 모든 워크플로우가 SAGA를 쓸 수 있게 됨.</li>
       </ul>
     </section>
 
     <!-- Tech Stack -->
     <section class="detail-section">
-      <h2><span class="section-index">07</span> Tech Stack</h2>
+      <h2><span class="section-index">06</span> Tech Stack</h2>
       <div class="project-tags">
         <span class="project-tag">Python</span>
         <span class="project-tag">FastAPI</span>
