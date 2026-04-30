@@ -148,25 +148,9 @@
       </ul>
     </section>
 
-    <!-- Timeline -->
-    <section class="detail-section">
-      <h2><span class="section-index">04</span> Timeline</h2>
-      <ul>
-        <li><strong>2022.09</strong> — 프로젝트 인수인계, 마이크로서비스 아키텍처 정비</li>
-        <li><strong>2022.10 — 11</strong> — 외부 솔루션 분석, 알고리즘 고도화, 알림 서비스·외부요인 시각화 개발</li>
-        <li><strong>2022.11.30</strong> — 데모 서비스 오픈 (AWS EC2)</li>
-        <li><strong>2022.12</strong> — Prometheus-Grafana 연동 배포</li>
-        <li><strong>2023.01</strong> — 정보분석실 인터뷰, DC팀 데모 리뷰</li>
-        <li><strong>2023.02.03</strong> — 실무/운영 리뷰 (DC팀 + 15명 참석)</li>
-        <li><strong>2023.02.28</strong> — 웹보드 6개 서비스 실적용 (뉴맞고 · 포커 · 섯다 · 뉴베가스 · 뉴바둑 · 뉴장기), DC팀 모니터링 채팅방 운영 시작</li>
-        <li><strong>2023.07</strong> — N-HiTS 모델로 교체 · 기존 모델 대비 탐지 성능 향상 검증</li>
-        <li><strong>2024.01</strong> — CU 이상탐지 가이드 미팅 (DC팀 대상)</li>
-      </ul>
-    </section>
-
     <!-- Impact -->
     <section class="detail-section">
-      <h2><span class="section-index">05</span> Impact</h2>
+      <h2><span class="section-index">04</span> Impact</h2>
       <ul>
         <li><strong>평균 10분 이내 장애 사전 예측</strong> — 최소 5분 ~ 30분 범위에서, 실측 장애 인지보다 앞서 감지.</li>
         <li><strong>웹보드 6개 서비스 + 브라운더스트2 전체 모니터링 적용</strong> — 뉴맞고 · 포커 · 섯다 · 뉴베가스 · 뉴바둑 · 뉴장기.</li>
@@ -178,7 +162,7 @@
 
     <!-- Takeaways -->
     <section class="detail-section">
-      <h2><span class="section-index">06</span> Takeaways</h2>
+      <h2><span class="section-index">05</span> Takeaways</h2>
       <ul>
         <li><strong>모델 교체(N-HiTS)의 임팩트는 "숫자"가 아니라 "놓친 장애를 잡았다"는 사례에서 나옴</strong> — 지표 기반 비교도 중요하지만, 실제 온콜이 신뢰하게 된 결정적 순간은 과거 장애 재현 테스트였음.</li>
         <li><strong>"AI 예측"보다 "알림 동선"이 채택의 병목</strong> — Google Chat 실시간 알림 + 10분 브리핑 + 반복 알림 억제까지 세팅되자 DC팀이 실제로 쓰기 시작. 모델 정확도를 올리는 것보다 이 동선 설계에 시간을 쓴 것이 ROI가 더 컸음.</li>
@@ -189,13 +173,13 @@
 
     <!-- Transferable Value -->
     <section class="detail-section">
-      <h2><span class="section-index">07</span> Transferable Value</h2>
+      <h2><span class="section-index">06</span> Transferable Value</h2>
       <p>시계열 데이터가 존재하는 모든 도메인 — <strong>제조 설비 예지 보전, 금융 이상거래 탐지, IoT 센서 모니터링</strong> 등에 동일한 방법론을 이식할 수 있습니다. 모델(N-HiTS/Darts)뿐 아니라, "수집 → 예측 → 시각화 → 알림 동선 → 운영팀이 만질 수 있는 레버"라는 <strong>엔드투엔드 설계 패턴</strong>이 그대로 재사용 가능합니다.</p>
     </section>
 
     <!-- Tech Stack -->
     <section class="detail-section">
-      <h2><span class="section-index">08</span> Tech Stack</h2>
+      <h2><span class="section-index">07</span> Tech Stack</h2>
       <div class="project-tags">
         <span class="project-tag">PyTorch</span>
         <span class="project-tag">N-HiTS</span>
